@@ -23,31 +23,45 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
+            <!-- NEW: Total Required Credits Input -->
+            <HBox spacing="10">
+                <Label text="Total Required Credits:" prefWidth="150"/>
+                <TextField fx:id="totalCreditInputField"
+                           promptText="Enter total credits (e.g., 15)"
+                           prefWidth="270"/>
+            </HBox>
+
+            <!-- Course Name -->
             <HBox spacing="10">
                 <Label text="Course Name:" prefWidth="120"/>
                 <TextField fx:id="courseNameField" promptText="Enter course name" prefWidth="300"/>
             </HBox>
 
+            <!-- Course Code -->
             <HBox spacing="10">
                 <Label text="Course Code:" prefWidth="120"/>
                 <TextField fx:id="courseCodeField" promptText="Enter course code" prefWidth="300"/>
             </HBox>
 
+            <!-- Course Credit -->
             <HBox spacing="10">
                 <Label text="Course Credit:" prefWidth="120"/>
                 <TextField fx:id="courseCreditField" promptText="e.g., 3" prefWidth="300"/>
             </HBox>
 
+            <!-- Teacher 1 -->
             <HBox spacing="10">
                 <Label text="Teacher 1:" prefWidth="120"/>
                 <TextField fx:id="teacher1Field" promptText="Teacher name" prefWidth="300"/>
             </HBox>
 
+            <!-- Teacher 2 -->
             <HBox spacing="10">
                 <Label text="Teacher 2:" prefWidth="120"/>
                 <TextField fx:id="teacher2Field" promptText="Teacher name" prefWidth="300"/>
             </HBox>
 
+            <!-- Grade Dropdown -->
             <HBox spacing="10">
                 <Label text="Grade:" prefWidth="120"/>
                 <ComboBox fx:id="gradeCombo" prefWidth="300">
@@ -69,6 +83,7 @@
                 </ComboBox>
             </HBox>
 
+            <!-- Add Course Button -->
             <Button fx:id="addCourseButton"
                     text="Add Course"
                     onAction="#handleAddCourse"
@@ -76,6 +91,7 @@
                     prefWidth="200"
                     alignment="CENTER"/>
 
+            <!-- Credit Status -->
             <Label fx:id="creditStatusLabel"
                    text="Total Credits Entered: 0"
                    style="-fx-font-size: 14px; -fx-text-fill: #444;"/>
