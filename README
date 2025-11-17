@@ -1,0 +1,27 @@
+The GPA Calculator Builder is a JavaFX-based desktop application designed to help students
+easily compute their academic GPA through an intuitive and visually appealing interface. The
+application guides users through a structured three-scene workflow: starting from a welcome
+page, moving into a detailed course entry form, and finally presenting a comprehensive results
+table with the calculated GPA. Users can input course information—including credits, grades,
+course code, and instructor names—while the system automatically tracks total credits and
+enables GPA calculation only when the required credit threshold is met. With gradient-styled
+UI components, smooth scene transitions, validation alerts, and reset functionality, the
+project delivers a user-friendly and modern experience tailored for students who want a fast,
+clean, and organized way to compute and review their GPA.
+
+Project Structure :
+
+src/
+ └── main/
+     ├── java/com/example/gpacalculatorbuilder/
+     │       ├── Main.java
+     │       ├── MainController.java
+     │       ├── Add_Course_Controller.java
+     │       ├── Result_Controller.java
+     │       ├── Course.java
+     │
+     └── resources/com/example/gpacalculatorbuilder/
+             ├── main.fxml
+             ├── Add_Course.fxml
+             ├── Result.fxml
+             ├── styles.css
