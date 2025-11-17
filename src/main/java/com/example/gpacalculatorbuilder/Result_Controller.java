@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Result_Controller {
@@ -29,6 +30,7 @@ public class Result_Controller {
     private Stage stage;
     private Scene scene;
     private Parent root;
+    private List<Course> courseList = new ArrayList<>();
 
     public void initialize() {
         nameCol.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getName()));
@@ -40,14 +42,15 @@ public class Result_Controller {
     }
 
     public void receiveCourseData(List<Course> list) {
+        courseList.clear();
+        courseList.addAll(list);
         resultTable.setItems(FXCollections.observableArrayList(list));
-        gpaLabel.setText("GPA: " + String.format("%.2f", calculateGPA(list)));
+        gpaLabel.setText("Your GPA: " + String.format("%.2f", calculateGPA(list)));
     }
 
     private double calculateGPA(List<Course> list) {
         double totalPoints = 0;
         double totalCredits = 0;
-
         for (Course c : list) {
             totalCredits += c.getCredit();
             totalPoints += c.getCredit() * gradeToPoint(c.getGrade());
@@ -78,5 +81,21 @@ public class Result_Controller {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @FXML
+    private void handleRecalculate(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("Add_Course.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    private void handleClear() {
+        resultTable.getItems().clear();
+        gpaLabel.setText("Your GPA:");
+        courseList.clear();
     }
 }

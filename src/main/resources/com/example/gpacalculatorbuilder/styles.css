@@ -1,0 +1,45 @@
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #dfe9f3, #d5d4d4);
+}
+
+.label {
+    -fx-text-fill: #1d1d1d;
+    -fx-font-family: "Segoe UI";
+}
+
+.button {
+    -fx-text-fill: #000000;
+    -fx-font-size: 15px;
+    -fx-padding: 10 25;
+    -fx-background-radius: 14;
+    -fx-cursor: hand;
+}
+
+.blue-btn {
+    -fx-background-color: linear-gradient(to right, #6784b8, #a9bcdc);
+}
+
+.green-btn {
+    -fx-background-color: linear-gradient(to right, #6784b8, #aabbdc);
+}
+
+.reset-btn {
+    -fx-background-color: linear-gradient(to right, #6784b8, #90a2c3);
+}
+
+.play-btn {
+    -fx-background-color: linear-gradient(to right, #5874a5, #5d87e3);
+}
+
+.button:hover {
+    -fx-opacity: 0.85;
+}
+
+.table-view {
+    -fx-background-color: rgb(199, 205, 218);
+    -fx-background-radius: 12;
+}
+
+.table-column {
+    -fx-alignment: CENTER;
+}
