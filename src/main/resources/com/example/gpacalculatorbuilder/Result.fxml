@@ -1,14 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="CONTROLLER_NAME"
-            prefHeight="400.0" prefWidth="600.0">
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.gpacalculatorbuilder.Result_Controller"
+            prefWidth="700" prefHeight="550">
 
-</AnchorPane>
+    <top>
+        <VBox alignment="CENTER" spacing="8" BorderPane.alignment="CENTER">
+            <Label text="GPA Calculator Builder" style="-fx-font-size: 26px; -fx-font-weight: bold;"/>
+            <Label text="Entered Course Summary" style="-fx-font-size: 15px; -fx-text-fill: #555;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="20" right="30" bottom="20" left="30"/>
+            </padding>
+
+            <TableView fx:id="resultTable" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="nameCol" text="Course Name" prefWidth="140"/>
+                    <TableColumn fx:id="codeCol" text="Course Code" prefWidth="100"/>
+                    <TableColumn fx:id="creditCol" text="Credit" prefWidth="80"/>
+                    <TableColumn fx:id="t1Col" text="Teacher 1" prefWidth="130"/>
+                    <TableColumn fx:id="t2Col" text="Teacher 2" prefWidth="130"/>
+                    <TableColumn fx:id="gradeCol" text="Grade" prefWidth="80"/>
+                </columns>
+            </TableView>
+
+            <Label fx:id="gpaLabel" text="GPA: " style="-fx-font-size: 18px; -fx-font-weight: bold;"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox alignment="CENTER" spacing="10">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <Button text="Back to Home" prefWidth="200"
+                    style="-fx-background-color: #444; -fx-text-fill: white;"
+                    onAction="#handleBackToHome"/>
+
+        </VBox>
+    </bottom>
+
+</BorderPane>
