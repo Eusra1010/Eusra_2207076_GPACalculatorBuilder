@@ -21,26 +21,24 @@ public class Add_Course_Controller {
     @FXML private TextField teacher2Field;
     @FXML private ComboBox<String> gradeCombo;
 
-    // NEW → user enters total required credits
+
     @FXML private TextField totalCreditInputField;
 
     @FXML private Label creditStatusLabel;
     @FXML private Button calculateButton;
 
-    private int requiredTotalCredits = 0;   // user enters this
+    private int requiredTotalCredits = 0;
     private int currentCredits = 0;
 
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    // ------------------------------------
-    // ADD COURSE LOGIC
-    // ------------------------------------
+
     @FXML
     private void handleAddCourse() {
 
-        // Check if total credit input is empty
+
         if (totalCreditInputField.getText().isEmpty()) {
             showAlert("Missing Total Credit",
                     "Please enter the total required credits first.");
@@ -73,14 +71,14 @@ public class Add_Course_Controller {
         creditStatusLabel.setText("Total Credits Entered: " + currentCredits +
                 " / " + requiredTotalCredits);
 
-        // Enable GPA button only when entered credits match
+
         if (currentCredits == requiredTotalCredits) {
             calculateButton.setDisable(false);
         } else {
             calculateButton.setDisable(true);
         }
 
-        // Clear fields after adding
+
         courseNameField.clear();
         courseCodeField.clear();
         courseCreditField.clear();
@@ -89,18 +87,14 @@ public class Add_Course_Controller {
         gradeCombo.getSelectionModel().clearSelection();
     }
 
-    // ------------------------------------
-    // CALCULATE GPA BUTTON PRESSED
-    // ------------------------------------
+
     @FXML
     private void handleCalculateGPA() {
         showAlert("GPA Calculation",
                 "GPA calculation logic will be implemented next!");
     }
 
-    // ------------------------------------
-    // SWITCH BACK TO MAIN SCENE
-    // ------------------------------------
+
     @FXML
     private void switchToMainPage(ActionEvent event) {
         try {
@@ -114,9 +108,7 @@ public class Add_Course_Controller {
         }
     }
 
-    // ------------------------------------
-    // ALERT POPUP
-    // ------------------------------------
+
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(title);
