@@ -6,25 +6,31 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import java.lang.classfile.instruction.NewMultiArrayInstruction;
-
 public class MainController {
-    private Stage stage;
-    private Scene scene;
-    private Parent root;
 
-    public void switchToInfoPage(ActionEvent event) throws IOException {
-        Parent root= FXMLLoader.load(getClass().getResource("/com/example/gpacalculatorbuilder/Add_Course.fxml"));
-        stage=(Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene= new Scene(root);
-        stage.setScene(scene);
+    private Stage stage;
+
+
+    private void loadPage(ActionEvent event, String fxml) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gpacalculatorbuilder/" + fxml));
+        Parent root = loader.load();
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
+    @FXML
+    private void switchToInfoPage(ActionEvent event) throws IOException {
+        loadPage(event, "Add_Course.fxml");
+    }
 
+    @FXML
+    private void switchToDatabasePage(ActionEvent event) throws IOException {
+        loadPage(event, "database_view.fxml");
+    }
 }

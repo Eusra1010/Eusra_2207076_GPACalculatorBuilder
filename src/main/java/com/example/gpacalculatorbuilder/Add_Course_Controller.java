@@ -2,7 +2,6 @@ package com.example.gpacalculatorbuilder;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -32,7 +31,7 @@ public class Add_Course_Controller {
 
     private Stage stage;
     private Scene scene;
-    private Parent root;
+
 
     @FXML
     private void handleAddCourse() {
@@ -79,38 +78,38 @@ public class Add_Course_Controller {
 
         creditStatusLabel.setText("Total Credits Entered: " + currentCredits);
 
-        if (currentCredits == requiredTotalCredits)
-            calculateButton.setDisable(false);
-        else
-            calculateButton.setDisable(true);
+        calculateButton.setDisable(currentCredits != requiredTotalCredits);
 
-        courseNameField.clear();
-        courseCodeField.clear();
-        courseCreditField.clear();
-        teacher1Field.clear();
-        teacher2Field.clear();
-        gradeCombo.getSelectionModel().clearSelection();
+        clearFields();
 
         showAlert("Course Added Successfully!");
     }
 
-    @FXML
-    private void handleReset() {
+    private void clearFields() {
         courseNameField.clear();
         courseCodeField.clear();
         courseCreditField.clear();
         teacher1Field.clear();
         teacher2Field.clear();
         gradeCombo.getSelectionModel().clearSelection();
+    }
+
+
+    @FXML
+    private void handleReset() {
+        clearFields();
         totalCreditInputField.clear();
         currentCredits = 0;
+        requiredTotalCredits = 0;
         courseList.clear();
         creditStatusLabel.setText("Total Credits Entered: 0");
         calculateButton.setDisable(true);
     }
 
+
     @FXML
     private void handleCalculateGPA(ActionEvent event) throws IOException {
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("Result.fxml"));
         Parent resultRoot = loader.load();
 
@@ -118,17 +117,81 @@ public class Add_Course_Controller {
         controller.receiveCourseData(courseList);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        scene = new Scene(resultRoot);
-        stage.setScene(scene);
+        stage.setScene(new Scene(resultRoot));
         stage.show();
     }
 
+
+    @FXML
+    private void handleSaveToDatabase() {
+        // If there are queued courses, save them all; otherwise save current form inputs as a single course
+        if (!courseList.isEmpty()) {
+            try {
+                for (Course c : courseList) {
+                    database.insertCourse(c);
+                }
+                showAlert("Saved " + courseList.size() + " course(s) to database!\nFile: " + database.getDatabaseFilePath());
+            } catch (RuntimeException ex) {
+                showAlert("Save to DB failed: " + ex.getMessage());
+            }
+            return;
+        }
+
+        Course single = formCourseFromInputs();
+        if (single == null) return;
+        try {
+            database.insertCourse(single);
+            showAlert("Saved 1 course to database!\nFile: " + database.getDatabaseFilePath());
+            clearFields();
+        } catch (RuntimeException ex) {
+            showAlert("Save to DB failed: " + ex.getMessage());
+        }
+    }
+
+
+    private Course formCourseFromInputs() {
+        if (courseNameField.getText().isEmpty()
+                || courseCodeField.getText().isEmpty()
+                || courseCreditField.getText().isEmpty()
+                || gradeCombo.getSelectionModel().isEmpty()) {
+            showAlert("Fill course name, code, credit, and grade before saving");
+            return null;
+        }
+
+        int credit;
+        try {
+            credit = Integer.parseInt(courseCreditField.getText());
+        } catch (NumberFormatException e) {
+            showAlert("Course credit must be a number");
+            return null;
+        }
+
+        return new Course(
+                courseNameField.getText(),
+                courseCodeField.getText(),
+                credit,
+                teacher1Field.getText(),
+                teacher2Field.getText(),
+                gradeCombo.getValue()
+        );
+    }
+
+    @FXML
+    private void handleShowDatabase(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gpacalculatorbuilder/database_view.fxml"));
+        Parent root = loader.load();
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+
+
     @FXML
     private void switchToMainPage(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gpacalculatorbuilder/main.fxml"));
+        Parent root = loader.load();
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 

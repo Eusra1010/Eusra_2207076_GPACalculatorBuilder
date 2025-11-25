@@ -29,8 +29,8 @@ public class Result_Controller {
 
     private Stage stage;
     private Scene scene;
-    private Parent root;
-    private List<Course> courseList = new ArrayList<>();
+
+    private final List<Course> courseList = new ArrayList<>();
 
     public void initialize() {
         nameCol.setCellValueFactory(c -> new SimpleStringProperty(c.getValue().getName()));
@@ -45,17 +45,21 @@ public class Result_Controller {
         courseList.clear();
         courseList.addAll(list);
         resultTable.setItems(FXCollections.observableArrayList(list));
-        gpaLabel.setText("Your GPA: " + String.format("%.2f", calculateGPA(list)));
+
+        double gpa = calculateGPA(list);
+        gpaLabel.setText("Your GPA: " + String.format("%.2f", gpa));
     }
 
     private double calculateGPA(List<Course> list) {
         double totalPoints = 0;
         double totalCredits = 0;
+
         for (Course c : list) {
             totalCredits += c.getCredit();
             totalPoints += c.getCredit() * gradeToPoint(c.getGrade());
         }
-        return totalPoints / totalCredits;
+
+        return totalCredits == 0 ? 0 : totalPoints / totalCredits;
     }
 
     private double gradeToPoint(String grade) {
@@ -76,26 +80,32 @@ public class Result_Controller {
 
     @FXML
     private void handleBackToHome(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("main.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
     private void handleRecalculate(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Add_Course.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("Add_Course.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
     @FXML
     private void handleClear() {
         resultTable.getItems().clear();
-        gpaLabel.setText("Your GPA:");
         courseList.clear();
+        gpaLabel.setText("Your GPA:");
+    }
+
+    @FXML
+    private void handleShowDatabase(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("database_view.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }

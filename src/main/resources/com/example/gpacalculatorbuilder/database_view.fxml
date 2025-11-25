@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            prefWidth="900" prefHeight="600"
+            fx:controller="com.example.gpacalculatorbuilder.DatabaseViewController">
+
+    <center>
+        <VBox spacing="8">
+            <padding><Insets top="12" right="12" bottom="12" left="12"/></padding>
+            <Label text="Saved Courses" style="-fx-font-size:18; -fx-font-weight:bold;"/>
+            <TableView fx:id="courseTable" prefHeight="520">
+                <columns>
+                    <TableColumn fx:id="colId" text="Id" prefWidth="60"/>
+                    <TableColumn fx:id="colName" text="Course Name" prefWidth="240"/>
+                    <TableColumn fx:id="colCredit" text="Course Credit" prefWidth="120"/>
+                    <TableColumn fx:id="colTeacher1" text="Teacher 1" prefWidth="160"/>
+                    <TableColumn fx:id="colTeacher2" text="Teacher 2" prefWidth="160"/>
+                    <TableColumn fx:id="colGrade" text="Grade" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" alignment="CENTER" BorderPane.alignment="CENTER">
+            <padding><Insets top="8" right="12" bottom="12" left="12"/></padding>
+            <Button text="Refresh" onAction="#handleRefresh" style="-fx-background-color:#4b89dc; -fx-text-fill:white; -fx-background-radius:6;"/>
+            <Button text="Update" onAction="#handleUpdate" style="-fx-background-color:#f8b633; -fx-text-fill:#222; -fx-background-radius:6;"/>
+            <Button text="Delete" onAction="#handleDelete" style="-fx-background-color:#d9534f; -fx-text-fill:white; -fx-background-radius:6;"/>
+            <Button text="Back to Home" onAction="#handleBackToHome" style="-fx-background-color:#6c757d; -fx-text-fill:white; -fx-background-radius:6;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
